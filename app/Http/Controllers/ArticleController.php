@@ -15,7 +15,24 @@ class ArticleController extends Controller
         // memosディレクトリーの中のindexページを指定し、memosの連想配列を代入
         return view('articles.index', ['articles' => $articles]);
     }
-    
+
+    public function create()
+    {
+        return view('articles.create');
+    }
+
+    public function store(Request $request)
+    {
+        $article= new Article;
+
+        $article->title =$request->title;
+        $article->body =$request->body;
+
+        $article -> save();
+
+        return redirect(route("articles.index"));
+    }
+
     public function show($id)
     {
         $article = Article::find($id);
